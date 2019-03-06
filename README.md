@@ -24,6 +24,9 @@
 #### 使用脚本运行
 `./start.sh`
 
+#### 使用NPM运行
+`npm start`
+
 ### 如何发布
 `./publish.sh`
 

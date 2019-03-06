@@ -1,0 +1,19 @@
+{
+  "name": "zhengruicloudteamtodo.server",
+  "version": "1.0.0",
+  "description": "一个开源的团队TODO软件.",
+  "scripts": {
+    "start": "php -S localhost:5000",
+    "publish": "tar -vcf ./dist/publish.tar *"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xiangrui2019/ZhengruiCloudTeamTODO.Server.git"
+  },
+  "author": "xiangruikong2019@outlook.com",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/Xiangrui2019/ZhengruiCloudTeamTODO.Server/issues"
+  },
+  "homepage": "https://github.com/Xiangrui2019/ZhengruiCloudTeamTODO.Server#readme"
+}

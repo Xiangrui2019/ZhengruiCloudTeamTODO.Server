@@ -1,0 +1,48 @@
+<?php do_action( 'UI_INBOX_BEFORE' );  ?>
+<div class="row-fluid">
+<div class="span7">
+	<h2 class="main_board"><?=__('INBOX_PAGE_TITLE')?></h2>
+
+	<?php do_action( 'UI_INBOX_LIST_BEFORE' ); ?>
+	<ul id="notice_list"></ul>	
+	<?php do_action( 'UI_INBOX_LIST_AFTER' ); ?>
+	
+
+	<?php do_action( 'UI_INBOX_SCRIPT_BEFORE' ); ?>
+	<script>
+	function loaded()
+	{
+		remember();
+		load_inbox();
+		$('.settings_icon').tooltip('show');
+		
+		if( !window.webkitNotifications )
+			$('#desknoty_li').hide();
+		else
+		{
+			if( window.webkitNotifications.checkPermission() == 0 )
+				$('#desknoty_li').css('background-color','#999');
+			else
+				$('#desknoty_link').bind('click',function(callback)
+				{
+					window.webkitNotifications.requestPermission(callback);
+				});		
+		}
+		<?php do_action( 'UI_INBOX_SCRIPT_LOAD' ); ?>
+	}
+	<?php do_action( 'UI_INBOX_SCRIPT_LAST' ); ?>
+	document.addEventListener('DOMContentLoaded', loaded, false);
+	</script>
+	<?php do_action( 'UI_INBOX_SCRIPT_AFTER' ); ?>
+	
+</div>
+
+<?php do_action( 'UI_SIDEBOARD_BEFORE' ); ?>
+<div class="span5" id="side_board">
+<div id="nsettings_box">
+
+</div>
+</div>
+<?php do_action( 'UI_SIDEBOARD_AFTER' ); ?>
+</div>
+<?php do_action( 'UI_INBOX_AFTER' );  ?>

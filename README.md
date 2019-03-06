@@ -21,6 +21,9 @@
 #### 如何使用PHPStudy运行?
 `cp ./* PHPStudyWWW目录`
 
+#### 使用脚本运行
+`./start.sh`
+
 ### 如何发布
 `./publish.sh`
 

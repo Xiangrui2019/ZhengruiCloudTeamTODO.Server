@@ -1,0 +1,21 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  phpVersion: 7.2
+
+steps:
+- script: rm -rf .git
+- script: git init
+- script: git remote add origin https://1539794417@qq.com:Xr111900@git.sinacloud.com/teamtodo
+- script: git add -A
+- script: git commit -m"Submit Codes"
+- script: git push origin master

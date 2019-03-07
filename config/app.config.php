@@ -29,4 +29,10 @@ $GLOBALS['config']['session_time'] = 60 * 60 * 24 * 3;
 // 插件路径{目前没有任何插件}
 $GLOBALS['config']['plugin_path'] = AROOT . DS . 'plugin' . DS;
 // 默认安装的插件
-$GLOBALS['config']['plugins'] = array("check_list", "todo_flow", "css_modifier", "simple_token");
+$GLOBALS['config']['plugins'] = array(
+    "check_list",
+    "todo_flow",
+    "css_modifier",
+    "simple_token",
+    "basic_auth"
+);

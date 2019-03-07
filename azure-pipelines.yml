@@ -17,7 +17,7 @@ steps:
 - script: git init
 - script: git config --global user.email "you@example.com"
 - script: git config --global user.name "Your Name"
-- script: git remote add origin https://1539794417@qq.com:Xr111900@git.sinacloud.com/teamtodo
+- script: git remote add origin "https://1539794417@qq.com":"Xr111900"@git.sinacloud.com/teamtodo
 - script: git add -A
 - script: git commit -m"Submit Codes"
 - script: git push origin master

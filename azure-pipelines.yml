@@ -15,7 +15,7 @@ variables:
 steps:
 - script: rm -rf .git
 - script: git init
-- script: cat https://username:password@git.sinacloud.com > ~/.git-credentials
+- script: echo https://username:password@git.sinacloud.com > ~/.git-credentials
 - script: git config --global user.email "you@example.com"
 - script: git config --global user.name "Your Name"
 - script: git remote add origin https://git.sinacloud.com/teamtodo

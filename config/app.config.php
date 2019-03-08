@@ -26,7 +26,7 @@ $GLOBALS['config']['dev_version'] = false;
 $GLOBALS['config']['default_language'] = 'zh_cn';
 // Session过期时间
 $GLOBALS['config']['session_time'] = 60 * 60 * 24 * 3;
-// 插件路径{目前没有任何插件}
+// 插件路径
 $GLOBALS['config']['plugin_path'] = AROOT . DS . 'plugin' . DS;
 // 默认安装的插件
 $GLOBALS['config']['plugins'] = array(

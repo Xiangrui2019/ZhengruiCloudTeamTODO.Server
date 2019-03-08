@@ -1,6 +1,6 @@
 ﻿<meta charset="utf-8" />
 <div class="line"></div>
-<h2 class="side_board">CheckList<span id="check_count"></span>
+<h2 class="side_board">检查项<span id="check_count"></span>
 <?php if( $data['owner_uid'] == uid() && intval($data['details']['status']) != 3  ): ?>
  <a class="side_link" title="<?=__('PL_CHECK_LIST_EDIT')?>" id="ck_edit_icon" href="javascript:ck_edit_toggle();"><i class="icon-edit"></i></a> 
 <?php endif; ?>

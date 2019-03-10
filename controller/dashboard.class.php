@@ -18,21 +18,8 @@ class dashboardController extends appController
 
 	function about()
 	{
-		$data['title'] = $data['top_title'] = __('TEAMTOY_ABOUT');
+		$data['title'] = $data['top_title'] = __('ABOUT');
 		return render( $data , 'ajax' , 'raw'  );
-	}
-
-	function check_version()
-	{
-		$params = array();
-
-		if($content = send_request( 'check_new_verison' ,  $params , token()  ))
-		{
-			$data = json_decode($content , 1);
-			return render( array( 'code' => 0 , 'data' => $data['data'] ) , 'rest' );
-		}
-
-		return render( array( 'code' => 100001 , 'message' => __('API_MESSAGE_CANNOT_CONNECT') ) , 'rest' );
 	}
 
 	function user_reset_password()

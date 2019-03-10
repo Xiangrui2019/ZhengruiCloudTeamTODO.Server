@@ -3,8 +3,8 @@ $GLOBALS['language']['zh_cn'] = array
 (
 	'ACCOUNT_CLOSED' => '账号已关闭',
 	'ACCOUNT_SUPER_ADMIN' => '管理员',
-	'TEAMTOY_ABOUT' => '关于ZhengruiTeamTODO',
-	'TEAMTOY_ABOUT_WITH_VERSION' => '关于ZhengruiTeamTODO[V%s]',
+	'ABOUT' => '关于ZhengruiTeamTODO',
+	'ABOUT_WITH_VERSION' => '关于ZhengruiTeamTODO[V%s]',
 	'LOADING' => '正在载入',
 	'LOGIN' => '登录',
 	'LOGIN_PAGE_TITLE' => '登录',

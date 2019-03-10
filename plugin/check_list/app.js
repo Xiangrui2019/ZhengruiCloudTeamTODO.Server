@@ -71,25 +71,33 @@ function bind_checklist()
 	$('#checklist_list a.close').unbind('click');
 	$('#checklist_list a.close').bind('click',function()
 	{
-		if( confirm(__('JS_PL_CHECK_LIST_ITEM_REMOVE_CONFIRM')) )
-		{
-			var url = '?c=plugin&a=checklist_remove' ;
-			var ckid = $(this).attr('ckid');
-			var params = { 'ckid' : ckid  };
-			$.post( url , params , function( data )
+		swal({
+			title: "CONFIRM",
+			text: __('JS_PL_CHECK_LIST_ITEM_REMOVE_CONFIRM'),
+			icon: "warning",
+			buttons: true
+		  })
+		  .then((confi) => {
+			if(confi)
 			{
-				var data_obj = $.parseJSON( data );
-			 
-				if( data_obj.err_code == 0 )
-					$('#checklist_list li[ckid='+ckid+']').remove();
-				else
-					swal("ERROR", __('JS_API_CALL_ERROR', [data_obj.err_code, data_obj.message]), "error");
+				var url = '?c=plugin&a=checklist_remove' ;
+				var ckid = $(this).attr('ckid');
+				var params = { 'ckid' : ckid  };
+				$.post( url , params , function( data )
+				{
+					var data_obj = $.parseJSON( data );
 				
-				count_checklist();
-				done();
-			});
-			doing();
-		}
+					if( data_obj.err_code == 0 )
+						$('#checklist_list li[ckid='+ckid+']').remove();
+					else
+						swal("ERROR", __('JS_API_CALL_ERROR', [data_obj.err_code, data_obj.message]), "error");
+					
+					count_checklist();
+					done();
+				});
+				doing();
+			}
+		  });
 	});
 
 	$('#checklist_list a.ing').unbind('click');
@@ -133,10 +141,18 @@ function bind_checklist()
 						$('#checklist_list li[ckid='+ ckid +']').addClass('checked');
 						if( $('#checklist_list li').length == $('#checklist_list li.checked').length )
 						{
-							if( confirm(__('JS_PL_CHECK_LIST_MARK_TODO_READ_CONFIRM')) )
-							{
-								mark_todo_done( parseInt( $('#checklist_list').attr('tid') ) );
-							}
+							swal({
+								title: "CONFIRM",
+								text: __('JS_PL_CHECK_LIST_MARK_TODO_READ_CONFIRM'),
+								icon: "warning",
+								buttons: true
+							  })
+							  .then((confi) => {
+								if(confi)
+								{
+									mark_todo_done( parseInt( $('#checklist_list').attr('tid') ) );
+								}
+							  });
 						}	
 					} 
 					else $('#checklist_list li[ckid='+ ckid +']').removeClass('checked');
@@ -233,23 +249,30 @@ function check_list_tpl_remove(title)
 		swal("ERROR", __('JS_PL_CHECK_LIST_TID_ERROR'), "error");
 		return false;
 	} 
-	if( confirm( __('JS_PL_CHECK_LIST_TEMPLATE_REMOVE_CONFIRM',[title,tid])) )
-	{
-		var url = '?c=plugin&a=check_list_tpl_remove' ;
-		var params = { 'tid':tid,'content':$('#tpl_text').val()  };
-		$.post( url , params , function( data )
-		{
-				var data_obj = $.parseJSON( data );
-				if( data_obj.err_code == 0 )
-				{
-					done();
-					$('#tpl_text').val('');
-					$('#tpl_select option:selected').remove();
-				}
+	swal({
+			title: "CONFIRM",
+			text: __('JS_PL_CHECK_LIST_TEMPLATE_REMOVE_CONFIRM', [title, tid]),
+			icon: "warning",
+			buttons: true
+		})
+		.then((confi) => {
+			if (confi) {
+				var url = '?c=plugin&a=check_list_tpl_remove';
+				var params = {
+					'tid': tid,
+					'content': $('#tpl_text').val()
+				};
+				$.post(url, params, function (data) {
+					var data_obj = $.parseJSON(data);
+					if (data_obj.err_code == 0) {
+						done();
+						$('#tpl_text').val('');
+						$('#tpl_select option:selected').remove();
+					}
+				});
+				doing();
+			}
 		});
-		doing();
-	}
-	
 }
 
 
@@ -292,22 +315,33 @@ function cktpll_changed()
 
 function check_list_tpl_create()
 {
-	var tname = prompt(__('JS_PL_CHECK_LIST_TEMPLATE_NAME'));
-	if( tname != null && tname.length > 0  )
-	{
-		var url = '?c=plugin&a=check_list_tpl_create' ;
-		var params = { 'title':tname,'content' : __('JS_PL_CHECK_LIST_TEMPLATE_INTRO')  };
-		$.post( url , params , function( data )
+	swal({
+		title: '请输入您的模板名称',
+		text: __('JS_PL_CHECK_LIST_TEMPLATE_NAME'),
+		content: "input",
+		icon: "warning",
+		button: {
+		  text: "确定",
+		  closeModal: true,
+		},
+	  })
+	  .then(tname => {
+		if( tname != null && tname.length > 0  )
 		{
-			var data_obj = $.parseJSON( data );
-			if( data_obj.err_code == 0 )
+			var url = '?c=plugin&a=check_list_tpl_create' ;
+			var params = { 'title':tname,'content' : __('JS_PL_CHECK_LIST_TEMPLATE_INTRO')  };
+			$.post( url , params , function( data )
 			{
-				$('#tpl_select option').attr('selected',false);
-				$('#tpl_select').append( $('<option value="' + data_obj.data.tid + '" selected="selected">'+ data_obj.data.title +'</option>') );
-				check_list_tpl_set2text(data_obj.data.tid);
-			}
-		});
-	}
+				var data_obj = $.parseJSON( data );
+				if( data_obj.err_code == 0 )
+				{
+					$('#tpl_select option').attr('selected',false);
+					$('#tpl_select').append( $('<option value="' + data_obj.data.tid + '" selected="selected">'+ data_obj.data.title +'</option>') );
+					check_list_tpl_set2text(data_obj.data.tid);
+				}
+			});
+		}
+	});
 }
 
 function check_list_tpl_set2text( tid )

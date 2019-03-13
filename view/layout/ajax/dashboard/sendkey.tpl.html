@@ -1,0 +1,15 @@
+<form action="?c=dashboard&a=setsendkey" id="sendkey_form">
+    <div class="input-prepend full">
+        <span class="add-on"><i class="icon-key"></i>&nbsp;
+            <?=__('SET_SENDKEY_INPUT')?></span>
+        <input name="sendkey" type="text" placeholder="<?=__('SET_SENDKEY_INPUT')?>" value="<?php echo kget("sk"); ?>">
+    </div>
+
+    <div class="line"></div>
+
+    <div>
+        <button class="btn" type="button" onclick="save_sendkey();">
+            <?=__('SET_SENDKEY')?></button>
+    </div>
+
+</form>

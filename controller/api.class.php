@@ -101,7 +101,9 @@ class apiController extends appController
         if (!$data = get_user_info_by_id($lid)) {
             return self::send_error(LR_API_DB_ERROR, __('API_MESSAGE_DATABASE_ERROR').db_error());
         } else {
-            publish_feed(__('API_TEXT_JOINT_TEAMTOY', $data['name']), $data['uid'], 3);
+            publish_feed(__('API_TEXT_JOINT_TODO', $data['name']), $data['uid'], 3);
+            
+            file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_TEXT_JOINT_TODO', $data['name'])));
 
             return self::send_result($data);
         }
@@ -367,6 +369,7 @@ class apiController extends appController
         } else {
             if ($level == 0) {
                 publish_feed(__('API_MESSAGE_ACCOUNT_CLOSED', array(uname(),  $user['name'])), uid(), 1);
+                file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_MESSAGE_ACCOUNT_CLOSED', array(uname(),  $user['name']))));
                 $user['level'] = 0;
 
                 return self::send_result($user);
@@ -379,7 +382,7 @@ class apiController extends appController
                     $level_text = $level;
                 }
                 publish_feed(__('API_MESSAGE_USER_LEVEL_UPDATED', array(uname(), $user['name'], $level_text)), uid(), 1);
-
+                file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_MESSAGE_USER_LEVEL_UPDATED', array(uname(), $user['name'], $level_text))));
                 return self::send_result(get_user_info_by_id($uid));
             }
         }
@@ -417,7 +420,7 @@ class apiController extends appController
             return self::send_error(LR_API_DB_ERROR, __('API_MESSAGE_DATABASE_ERROR').db_error());
         } else {
             publish_feed(__('API_MESSAGE_ACCOUNT_CLOSED', array(uname(), $user['name'])), uid(), 1);
-
+            file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_MESSAGE_ACCOUNT_CLOSED', array(uname(), $user['name']))));
             return self::send_result($user);
         }
     }
@@ -458,9 +461,8 @@ class apiController extends appController
                 $tinfo['other'] = 1;
             } else {
                 publish_feed(__('API_TEXT_TODO_ADDED', array(uname(), $content)), uid(), 2, $tid);
+                file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_TEXT_TODO_ADDED', array(uname(), $content))));
             }
-
-            // .'添加了TODO【'.  .'】'
         }
 
         return self::send_result($tinfo);
@@ -657,6 +659,7 @@ class apiController extends appController
 
                 if ($tinfo['is_public'] == 1) {
                     publish_feed(__('API_TEXT_COMMENT_TODO', array(uname(), $tinfo['content'], $tinfo['content'])), uid(), 2, $tid);
+                    file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_TEXT_COMMENT_TODO', array(uname(), $tinfo['content'], $tinfo['content']))));
                 }
 
                 return self::send_result($comment);
@@ -802,7 +805,7 @@ class apiController extends appController
             add_history($tid, __('API_TEXT_ASSIGN_TODO'));
 
             publish_feed(__('API_TEXT_ASSIGN_TODO_DETAIL', array(uname(), $todo_text, $uinfo['name'])), uid(), 2, $tid);
-
+            file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_TEXT_ASSIGN_TODO_DETAIL', array(uname(), $todo_text, $uinfo['name']))));
             if ($in) {
                 return get_todo_info_by_id($tid);
             } else {
@@ -1101,9 +1104,8 @@ class apiController extends appController
                 if ($todoinfo['details']['is_public'] == 1) {
                     // .'完成了TODO【'.  .'】'
                     publish_feed(__('API_TEXT_FINISH_TODO', array(uname(), $todoinfo['content'])), uid(), 2, $tid);
+                    file_get_contents('http://pushbear.ftqq.com/sub?sendkey='.kget("sk").'&text='.urlencode("操作提醒").'&desp='.urlencode(__('API_TEXT_FINISH_TODO', array(uname(), $todoinfo['content']))));
 
-                    // send notice
-                    // 向订阅todo的同学发送通知
                     $sql = "SELECT `uid` FROM `todo_user` WHERE `tid`= '".intval($tid)."' AND `is_follow` = 1 ";
 
                     if ($uitems = get_data($sql)) {

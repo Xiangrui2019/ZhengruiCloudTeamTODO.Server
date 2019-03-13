@@ -42,6 +42,26 @@ function send_form_in( name )
 }
 
 
+function save_sendkey()
+{
+	send_form( 'sendkey_form' , function(data){ sendkeysaved( data ); } )
+}
+
+function sendkeysaved(data)
+{
+	var data_obj = $.parseJSON( data );
+	 
+	if( data_obj.err_code == 0 )
+	{
+		swal("SUCCESS", __('JS_SENDKEY_SAVED'), 'success');
+		close_float_box();
+	}
+	else
+	{
+		swal("ERROR", __('JS_API_CONNECT_ERROR'), 'error');
+	}
+}
+
 function set_form_notice( name , data )
 {
 	data = '<span class="label label-important">' + data + '</span>';

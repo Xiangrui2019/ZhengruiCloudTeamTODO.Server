@@ -801,4 +801,18 @@ PRIMARY KEY (  `folder_name` )
 		}
 		return null;		
 	}
+
+	function sendkey()
+	{
+		return render($data, 'ajax', 'raw');
+	}
+
+	function setsendkey()
+	{
+		$sendkey = z(t(v('sendkey')));
+
+		kset("sk", $sendkey);
+		
+		return render( array( 'code' => 0 , 'data' => array()) , 'rest' );
+	}
 }
